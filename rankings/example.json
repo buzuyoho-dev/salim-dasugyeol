@@ -1,0 +1,11 @@
+{"date": "2099-01-01", "slot": "1930",
+ "question": "자취러가 꼽은 '진작 살걸' 물건",
+ "comments": 214,
+ "hook": "지난주 '진작 살걸' 질문에 댓글 214개.\n1위는 압도적이었어.",
+ "items": [
+  {"name": "욕실 스퀴지", "votes": 31, "why": "물기가 안 남아서 곰팡이 청소가 확 줄었다", "link": "https://link.coupang.com/a/example1"},
+  {"name": "회전 행거", "votes": 18, "why": "좁은 방에서 옷 꺼내기가 편해졌다", "link": "https://link.coupang.com/a/example2"},
+  {"name": "전기 주전자", "votes": 15, "why": "라면·커피·설거지 물까지 다 해결", "link": "https://link.coupang.com/a/example3"},
+  {"name": "매트리스 토퍼", "votes": 11, "why": "싼 침대가 호텔 침대처럼 바뀌었다", "link": ""},
+  {"name": "멀티탭 정리함", "votes": 7, "why": "선이 안 보이니까 방이 넓어 보인다", "link": ""}
+ ]}

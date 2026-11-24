@@ -7,3 +7,9 @@
 - `collect.yml`(23:50 KST)이 최근 14일 질문글 댓글을 `data/replies/`에 저장(아이디는 해시로만)
 - 시크릿: `THREADS_TOKEN`
 - 원칙: 써 보지 않은 물건을 써 본 척하지 않는다. 평가는 "댓글 ○표", "쿠팡 평점(날짜 기준)"처럼 출처를 붙인다.
+
+## 다수결 정리글 만들기 (매주 일요일)
+1. `python3 cardgen/show_replies.py <날짜_슬롯>`으로 질문글 댓글을 읽고, 같은 사람 표는 1표로 세어 `rankings/<게시일>.json` 작성(형식은 `rankings/example.json`)
+2. 상위 항목의 쿠팡 파트너스 링크를 `link`에 넣기(쿠팡 API 열리기 전엔 대표님이 만든 링크)
+3. `python3 cardgen/make_curation.py rankings/<게시일>.json` → 카드 2장 + `queue/<게시일>/1930/post.json` 생성, 검사 통과 확인 후 push
+- 표 수·이유는 실제 댓글에서만. 써 본 척 표현 금지, 댓글 원문·아이디 인용 금지(요약만)
