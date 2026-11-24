@@ -1,0 +1,25 @@
+name: refresh-token
+# 매주 스레드 토큰을 새 60일짜리로 바꾸고, 저장소 시크릿 THREADS_TOKEN을 직접 덮어쓴다.
+# 필요한 시크릿: THREADS_TOKEN, SECRETS_PAT(이 저장소 Secrets 쓰기 권한만 있는 세분화 토큰)
+on:
+  schedule:
+    - cron: "17 18 * * 0"  # 매주 월 03:17 KST
+  workflow_dispatch:
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 토큰 갱신 후 시크릿 교체
+        env:
+          OLD: ${{ secrets.THREADS_TOKEN }}
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then echo "SECRETS_PAT 시크릿이 없어 갱신할 수 없습니다"; exit 1; fi
+          RES=$(curl -sf "https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token&access_token=$OLD")
+          NEW=$(echo "$RES" | python3 -c 'import sys,json;print(json.load(sys.stdin)["access_token"])')
+          DAYS=$(echo "$RES" | python3 -c 'import sys,json;print(int(json.load(sys.stdin).get("expires_in",0))//86400)')
+          echo "::add-mask::$NEW"
+          printf '%s' "$NEW" | gh secret set THREADS_TOKEN --repo "$REPO"
+          echo "토큰 갱신 완료: 약 ${DAYS}일 유효"
